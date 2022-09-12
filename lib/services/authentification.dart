@@ -23,8 +23,8 @@ class AuthService {
 
   // déconnexion
   Future<void> signOut() async {
-    _googleSignIn.signOut();
-    return _auth.signOut();
+    await _googleSignIn.signOut();
+    await _auth.signOut();
   }
 
 
