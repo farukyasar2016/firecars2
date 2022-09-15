@@ -40,7 +40,7 @@ class CarFeed extends StatelessWidget {
                     car!.carName!,
                     style : TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text('De $car!.carUserName'),
+                  Text('De ${car!.carUserName!}'),
                 ],
               ),
               Text(formattingDate(car!.carTimestamp)),
