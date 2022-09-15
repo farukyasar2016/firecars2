@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firecars/services/authentification.dart';
+import 'package:firecars/services/dbServices.dart';
 import 'package:firecars/views/login.dart';
 import 'package:firecars/views/profile/profile.dart';
 import 'package:firecars/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import 'model/carModel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +18,13 @@ void main() async {
       StreamProvider.value(
           initialData: null,
           value: AuthService().user,
+      ),
+      StreamProvider<List<Car>>.value(
+        initialData: [
+
+        ],
+        value: DatabaseService().cars,
+
       )
     ],
       child: MyApp(),
