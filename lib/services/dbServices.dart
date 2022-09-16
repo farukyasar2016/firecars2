@@ -9,6 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DatabaseService {
+  String? userID, carID;
+  DatabaseService({this.userID, this.carID});
   CollectionReference _cars = FirebaseFirestore.instance.collection('Cars');
   FirebaseStorage _storage = FirebaseStorage.instance;
 
@@ -85,21 +87,21 @@ void addCar(Car car){
     favoritedBy.doc(userID).delete();
   }
 
-  // Récuperation des voitures favoris de l'utilisateur en temps réel
-  //Stream<Car> get myFavoriteCar {
-  //  final favoritedBy = _cars.doc(carID).collection('favoritedBy');
-  //  return favoritedBy.doc(userID).snapshots().map((doc) {
-  //    return Car(
-  //      carID: doc.id,
-  //      carName: doc.get('carName'),
-  //      carUrlImg: doc.get('carUrlImg'),
-  //      carUserID: doc.get('carUserID'),
-  //      carUserName: doc.get('carUserName'),
-  //      carFavoriteCount: doc.get('carFavoriteCount'),
-  //      carTimestamp: doc.get('carTimestamp'),
-  //    );
-  //  });
-  //}
+   //Récuperation des voitures favoris de l'utilisateur en temps réel
+  Stream<Car> get myFavoriteCar {
+    final favoritedBy = _cars.doc(carID).collection('favoritedBy');
+    return favoritedBy.doc(userID).snapshots().map((doc) {
+      return Car(
+        carID: doc.id,
+        carName: doc.get('carName'),
+        carUrlImg: doc.get('carUrlImg'),
+        carUserID: doc.get('carUserID'),
+        carUserName: doc.get('carUserName'),
+        carFavoriteCount: doc.get('carFavoriteCount'),
+        carTimestamp: doc.get('carTimestamp'),
+      );
+    });
+  }
 
   Future<Car> singleCar(String carID) async {
     final doc = await _cars.doc(carID).get();
