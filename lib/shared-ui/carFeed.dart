@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firecars/shared-ui/favoriteBadge.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -14,18 +15,23 @@ class CarFeed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-    Container(
-    height: MediaQuery.of(context).size.height * 0.35,
-    margin: EdgeInsets.symmetric(horizontal: 8.0),
-    decoration: BoxDecoration(
-    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-    color : Colors.grey,
-    image : DecorationImage(
-    image : NetworkImage(car!.carUrlImg!),
-    fit:BoxFit.cover,
+    Stack(
+      children : [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.35,
+          margin: EdgeInsets.symmetric(horizontal: 8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            color : Colors.grey,
+            image : DecorationImage(
+              image : NetworkImage(car!.carUrlImg!),
+              fit:BoxFit.cover,
 
-    ),
-    ),
+            ),
+          ),
+        ),
+        FavoriteBadge(car : car!, userID: userID),
+      ]
     ),
         Padding(
           padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 16.0),
